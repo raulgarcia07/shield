@@ -1,4 +1,4 @@
-# B
+# Aplicación shield para el desplieble y automatización de tares con Fabric,Ansible y Docket
 
 A continuación vamos explicar como instalar el proyecto.
 
@@ -8,7 +8,7 @@ A continuación vamos explicar como instalar el proyecto.
 git clone https://github.com/raulgarcia07/shield.git
 ```
 
-2. Entramos en la carpeta `shield` y crear el entorno virtual con el comando:
+2. Entramos en la carpeta `shield` y creamos el entorno virtual con el comando:
 ```
 python3 -m venv .venv 
 ```
@@ -52,7 +52,7 @@ python manage.py runserver
 
 ## Despliegue de la aplicación en varias máquinas con Fabric:
 
-1. Asegurarse de que en la máquina donde se vaya a instalar el proyecto este instalado `python3` y  `python3-venv`:
+1. Asegurarse de que en la máquina donde se vaya a desplegar el proyecto este instalado `python3` y  `python3-venv`:
 
 
 2. Instalar fabric en el entorno virtual con el comando:

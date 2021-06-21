@@ -80,9 +80,9 @@ def pull(ctx, branch="main"):
         conn.run(f"git pull origin {branch}")
 
 @task
-def create_venv(ctx):
+def create_venv_requirements(ctx):
 
-    print("creating venv and install requiremenst....")
+    print("creating venv and install requirements....")
 
     if isinstance(ctx, Connection):
         conn = ctx
@@ -125,6 +125,6 @@ def deploy(ctx):
     clone(conn)
     checkout(conn, branch="main")
     pull(conn, branch="main")
-    create_venv(conn)
+    create_venv_requirements(conn)
     migrate(conn)
     loaddata(conn)

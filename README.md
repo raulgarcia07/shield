@@ -1,4 +1,4 @@
-# Aplicación shield para el despliegue y automatización de tares con Fabric,Ansible y Docket
+# Aplicación shield para el despliegue y automatización de tareas con Fabric, Ansible y Docker
 
 A continuación vamos explicar como instalar el proyecto.
 

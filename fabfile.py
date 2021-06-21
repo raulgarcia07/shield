@@ -90,7 +90,6 @@ def create_venv_requirements(ctx):
         conn = get_connection(ctx)
     with conn.cd(PROJECT_PATH):
         conn.run("python3 -m venv .venv")
-        conn.run(f"{VENV_PIP} install django")
         conn.run(f"{VENV_PIP} install -r requirements.txt")   
 
 @task

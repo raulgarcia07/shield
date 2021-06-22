@@ -90,3 +90,28 @@ def production(ctx):
     ```
     fab production deploy
     ```
+## Despliegue de la aplicación en varias máquinas con Ansible:
+
+1. Instalar Ansible en el sistema operativo
+
+2. Instalar la libreia de Ansible en el entorno virutal:
+
+```
+pip install ansible
+```
+3. En el fichero ansible/vars.yml se encuentran las variables del despliegue, cambiar al menos la variable `ssh_private_key` por la ruta donde está la clave privada.
+
+4. En el fichero ansible/host añadir o quitar las máquinas donde se quiere desplegar junto con `ansible_python_interpreter=/usr/bin/python3`:
+```
+192.168.33.10 ansible_python_interpreter=/usr/bin/python3
+```
+
+5. Ejecutar el script dentro de la carpeta ansible con:
+```
+ansible-playbook -i hosts provision.yml --user=vagrant --ask-pass
+```
+
+6. Instalar sshpass si lo requiere y volver a ejecutar el paso 5:
+```
+sudo apt-get install sshpass
+```

@@ -92,7 +92,15 @@ def production(ctx):
 
 ## Despliegue de la aplicación en varias máquinas con Ansible:
 
-1. Instalar Ansible en el sistema operativo..
+1. Instalar Ansible en el sistema operativo:
+```
+En la terminal de Ubuntu:
+
+sudo apt update
+sudo apt install software-properties-common
+sudo apt-add-repository --yes --update ppa:ansible/ansible
+sudo apt install ansible
+```
 
 2. Instalar la libreia de Ansible en el entorno virutal:
 
@@ -101,12 +109,12 @@ pip install ansible
 ```
 3. En el fichero ansible/vars.yml se encuentran las variables del despliegue, cambiar al menos la variable `ssh_private_key` por la ruta donde está la clave privada.
 
-4. En el fichero ansible/host añadir o quitar las máquinas donde se quiere desplegar junto con `ansible_python_interpreter=/usr/bin/python3`:
+4. En el fichero `ansible/host` añadir o quitar las máquinas donde se quiere desplegar junto con `ansible_python_interpreter=/usr/bin/python3`:
 ```
 192.168.33.10 ansible_python_interpreter=/usr/bin/python3
 ```
 
-5. Dirigirnos a la carpeta `ansible` si ya no lo estamos:
+5. Dirigirnos a la carpeta `ansible` si  no lo estamos ya:
 ```
 cd ansible
 ```
@@ -159,4 +167,4 @@ scp ./shield.tar usuario@maquina:/home/usuario # sustituir usuario@maquina  y /h
 docker load -i "path to image tar file"
 
 ```
-8. Repetir el paso 4 para comprobar que funciona la imagen de docker en la máquina remota.
+8. Repetir el paso 4  en la máquina remota para comprobar que funciona la imagen de docker.

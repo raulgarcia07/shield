@@ -52,15 +52,12 @@ python manage.py runserver
 
 ## Despliegue de la aplicación en varias máquinas con Fabric:
 
-1. Asegurarse de que en la máquina donde se vaya a desplegar el proyecto este instalado `python3` y  `python3-venv`:
-
-
-2. Instalar fabric en el entorno virtual con el comando:
+1. Instalar fabric en el entorno virtual con el comando:
 ```
 pip install fabric
 ```
 
-3. Cambiar los datos de acceso a la máquina remota, localizados en la función ´development(ctx)´ del archivo fabfile.py ,líneas 12-16:
+2. Cambiar los datos de acceso a la máquina remota, localizados en la función ´development(ctx)´ del archivo fabfile.py ,líneas 12-16:
 
 ```
 @task
@@ -70,18 +67,16 @@ def development(ctx):
     ctx.connect_kwargs = {"password": "vagrant"}
  ``` 
 
-4. Comentar las lineas 92 y 93 del archivo `fabfile.py` si no se quiere hacer un `sudo apt-get update` y un `sudo apt-get install python3-venv` porque ya está instalado.
+3. Comentar las lineas 92 y 93 del archivo `fabfile.py` si no se quiere hacer un `sudo apt-get update` y un `sudo apt-get install python3-venv` porque ya está instalado.
 
-5. Ejecutar el script con el comando con la estructura `fab nombre-de-la-función deploy`, en este caso:
+4. Ejecutar el script con el comando con la estructura `fab nombre-de-la-función deploy`, en este caso:
 
  ```
  fab development deploy
 ```
 (OPCIONAL)
 
-
-
-6. Se pueden añadir varios entornos de configuración creando funciones del tipo del paso 2:
+5. Se pueden añadir varios entornos de configuración creando funciones del tipo del paso 2:
 ```
 @task
 def production(ctx):
@@ -90,10 +85,11 @@ def production(ctx):
     ctx.connect_kwargs = {"password": "production"}
  ``` 
 
- 7. Ejecutar el script con el comando con la estructura `fab nombre-de-la-función deploy`, en este caso:
+ 6. Ejecutar el script con el comando con la estructura `fab nombre-de-la-función deploy`, en este caso:
     ```
     fab production deploy
     ```
+
 ## Despliegue de la aplicación en varias máquinas con Ansible:
 
 1. Instalar Ansible en el sistema operativo..
@@ -139,7 +135,6 @@ En Ubuntu: https://docs.docker.com/engine/install/ubuntu/
 docker build -t shield .
 ```
   
-
 4. Comprobar que funciona la imagen de docker con :
 ```
 docker run --publish 8000:8000 shield 

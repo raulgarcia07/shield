@@ -70,14 +70,18 @@ def development(ctx):
     ctx.connect_kwargs = {"password": "vagrant"}
  ``` 
 
- 4. Ejecutar el script con el comando con la estructura `fab nombre-de-la-función deploy`, en este caso:
+4. Comentar las lineas 92 y 93 del archivo `fabfile.py` si no se quiere hacer un `sudo apt-get update` y un `sudo apt-get install python3-venv` porque ya está instalado.
+
+5. Ejecutar el script con el comando con la estructura `fab nombre-de-la-función deploy`, en este caso:
 
  ```
  fab development deploy
 ```
 (OPCIONAL)
 
-5. Se pueden añadir varios entornos de configuración creando funciones del tipo del paso 2:
+
+
+6. Se pueden añadir varios entornos de configuración creando funciones del tipo del paso 2:
 ```
 @task
 def production(ctx):
@@ -86,13 +90,13 @@ def production(ctx):
     ctx.connect_kwargs = {"password": "production"}
  ``` 
 
- 6. Ejecutar el script con el comando con la estructura `fab nombre-de-la-función deploy`, en este caso:
+ 7. Ejecutar el script con el comando con la estructura `fab nombre-de-la-función deploy`, en este caso:
     ```
     fab production deploy
     ```
 ## Despliegue de la aplicación en varias máquinas con Ansible:
 
-1. Instalar Ansible en el sistema operativo
+1. Instalar Ansible en el sistema operativo..
 
 2. Instalar la libreia de Ansible en el entorno virutal:
 
@@ -106,12 +110,58 @@ pip install ansible
 192.168.33.10 ansible_python_interpreter=/usr/bin/python3
 ```
 
-5. Ejecutar el script dentro de la carpeta ansible con:
+5. Dirigirnos a la carpeta `ansible` si ya no lo estamos:
 ```
-ansible-playbook -i hosts provision.yml --user=vagrant --ask-pass
+cd ansible
+```
+6. Ejecutar el script dentro de la carpeta `ansible` con:
+```
+ansible-playbook -i hosts provision.yml --user=vagrant --ask-pass # donde vagrant es el usuario de la máquina remota
 ```
 
-6. Instalar sshpass si lo requiere y volver a ejecutar el paso 5:
+7. Instalar sshpass si lo requiere y volver a ejecutar el paso 6:
 ```
 sudo apt-get install sshpass
 ```
+
+## Despliegue de la aplicación en varias máquinas con Docker:
+
+1. Comprobar que nuestro proyecto funciona correctamente.
+
+2. Instalar Docker en nuestra máquina local y en la remota:
+```
+En Windows: https://docs.docker.com/docker-for-windows/install/
+En Mac: https://docs.docker.com/docker-for-mac/install/
+En Ubuntu: https://docs.docker.com/engine/install/ubuntu/
+```
+3. Dirigirnos a la carpeta raiz de nuestro proyecto y  crear una imagen de docker con:
+```
+docker build -t shield .
+```
+  
+
+4. Comprobar que funciona la imagen de docker con :
+```
+docker run --publish 8000:8000 shield 
+o
+docker run -d -p 8000:8000 shield # para ejecutar en segundo plano
+
+y curl localhost:8000  # si nos devuelve código html funciona
+```
+5. Si funciona correctamente guardar un archivo comprimido .tar con la imagen:
+
+```
+docker save -o ./shield.tar shield   # donde ./shield.tar es la ruta donde queremos guardar el fichero en nuestra máquina local
+
+```
+6. Transferir el archivo por ssh con el comando:
+```
+scp ./shield.tar usuario@maquina:/home/usuario # sustituir usuario@maquina  y /home/usuario por la ruta donde queremos que se guarde el fichero en la máquina remota
+
+```
+7. Una vez transferido el archivo ejecutar el siguiente comando en la máquina remota para cargar la imagen:
+```
+docker load -i "path to image tar file"
+
+```
+8. Repetir el paso 4 para comprobar que funciona la imagen de docker en la máquina remota.
